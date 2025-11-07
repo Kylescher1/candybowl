@@ -7,7 +7,7 @@ HX711 scale;
 
 // calibration constants
 const float m = -0.0013;
-const float b = -4237.73 + 1527 + 247.4 + 7.5;
+const float b = -4237.73 + 1527 + 247.4 + 7.5 + 20;
 
 #define WINDOW_SIZE 5
 float readings[WINDOW_SIZE];
