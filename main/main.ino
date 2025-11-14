@@ -7,9 +7,9 @@ HX711 scale;
 
 // calibration constants
 const float m = -0.0013;
-const float b = -4237.73 + 1527 + 247.4 + 7.5 + 20;
+const float b = -4237.73 + 1527 + 247.4 + 7.5;
 
-#define WINDOW_SIZE 5
+#define WINDOW_SIZE 20  // Increase for smoother average (5=fast, 20=smooth, 50=very smooth)
 float readings[WINDOW_SIZE];
 int readIndex = 0;
 float total = 0;
@@ -43,9 +43,5 @@ void loop() {
     Serial.print(grams, 2);
     Serial.print('\t');
     Serial.println(avg, 2);
-
-  
-    
-
   }
 }
