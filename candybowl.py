@@ -56,7 +56,6 @@ time.sleep(2)
 
 raw_vals = []
 grams_vals = []
-avg_vals = []
 python_avg_vals = []  # Python-side moving average
 
 plt.ion()
@@ -75,18 +74,16 @@ try:
     while True:
         try:
             line = ser.readline().decode().strip()
-            parts = line.split()
+            parts = line.split()  # Handles both spaces and tabs
 
-            if len(parts) != 3:
+            if len(parts) != 2:
                 continue
 
             raw = int(parts[0])
             grams = float(parts[1])
-            avg = float(parts[2])
 
             raw_vals.append(raw)
             grams_vals.append(grams)
-            avg_vals.append(avg)
             
             # Calculate Python-side moving average
             python_avg = calculate_moving_average(grams_vals, MOVING_AVG_WINDOW)
@@ -96,14 +93,12 @@ try:
             if len(raw_vals) > 200:
                 raw_vals.pop(0)
                 grams_vals.pop(0)
-                avg_vals.pop(0)
                 python_avg_vals.pop(0)
 
             ax.clear()
             ax.plot(raw_vals, label="raw")
             ax.plot(grams_vals, label="grams")
-            ax.plot(avg_vals, label="avg (Arduino)")
-            ax.plot(python_avg_vals, label=f"avg (Python, window={MOVING_AVG_WINDOW})", linewidth=2)
+            ax.plot(python_avg_vals, label=f"avg (window={MOVING_AVG_WINDOW})", linewidth=2)
 
             ax.set_ylim(Y_MIN, Y_MAX)   # FIXED SCALE
             ax.set_title("Scale Readings")
